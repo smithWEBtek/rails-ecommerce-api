@@ -23,7 +23,6 @@ def make_items
     new_item.save
   end
 end
- 
 
 def main
     make_items
