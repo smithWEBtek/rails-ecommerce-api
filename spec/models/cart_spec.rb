@@ -4,8 +4,12 @@ RSpec.describe Cart, type: :model do
   
   describe 'validations' do 
 
-    pending 'requires a user upon creation'
+    it 'requires a user upon creation' do 
+      cart = build(:cart, user: nil)
 
+      expect(cart.valid?).to eq(false)
+      expect(cart.errors.full_messages).to eq(["User must exist"])
+    end
   end 
 
   describe 'relationships' do 
