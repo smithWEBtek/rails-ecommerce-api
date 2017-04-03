@@ -4,13 +4,14 @@ RSpec.describe User, type: :model do
   
   describe 'validations' do
 
-    it 'requires a email and password upon creation' do 
+    it 'requires an email and password upon creation' do 
       user = build(:user, email: nil, password: nil)
 
       expect(user.valid?).to equal(false)
       expect(user.errors.full_messages).to eq([
         "Password can't be blank",
-        "Email can't be blank"
+        "Email can't be blank",
+        "Email is invalid"
       ])
     end
 
@@ -24,7 +25,18 @@ RSpec.describe User, type: :model do
       ])
     end
 
-    it 'requires that an email is valid (contains a @ symbol and a (.com, .org, etc...)'
+    it 'requires that an email is valid (contains an @ symbol and a (.com, .org, etc...)' do 
+      user1 = build(:user, email: 'avi.com')
+      user2 = build(:user, email: 'avi@something')
+      user3 = build(:user, email: 'avi')
+
+      expect(user1.valid?).to equal(false)
+      expect(user1.errors.full_messages).to eq([
+        "Email is invalid"
+      ])
+      expect(user2.valid?).to equal(false)
+      expect(user3.valid?).to equal(false)
+    end
 
   end
 
