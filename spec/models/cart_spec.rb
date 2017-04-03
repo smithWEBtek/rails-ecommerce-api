@@ -14,11 +14,15 @@ RSpec.describe Cart, type: :model do
 
   describe 'relationships' do 
 
-    pending 'has many line items that are destroyed upon deletion of cart' 
+    it 'has many line items that are destroyed upon deletion of cart' 
 
-    pending 'has many items through line items' 
+    it 'has many items through line items' 
 
-    pending 'belongs to a user' 
+    it 'belongs to a user' do 
+      cart = create(:cart)
+      
+      expect(cart.user.email).to eq("avi@flatironschool.com")
+    end
 
   end
 end
